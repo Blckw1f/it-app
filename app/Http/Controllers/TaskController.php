@@ -14,4 +14,9 @@ class TaskController extends Controller
 
         return new TaskResource($project);
     }
+
+    public function show(Task $task): TaskResource
+    {
+        return new TaskResource($task->load('project'));
+    }
 }

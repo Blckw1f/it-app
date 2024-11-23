@@ -29,10 +29,10 @@
                 {{ project.tasks.name }}
             </p>
             <div class="dflex justify-end">
-                <button @click="this.selectedId = project.id; this.edit()" class="btn-icon btn-icon-success" >
+                <button @click="this.selectedId = project.id; this.editProject()" class="btn-icon btn-icon-success" >
                     Edit
                 </button>
-                <button class="btn-icon btn-icon-danger" >
+                <button @click="this.selectedId = project.id; this.deleteProject()" class="btn-icon btn-icon-danger" >
                     Del
                 </button>
             </div>
@@ -53,21 +53,30 @@ export default {
         };
     },
     async mounted() {
-        await this.getProducts();
+        await this.getProjects();
     },
     methods: {
-        getProducts() {
+        getProjects() {
             axios.get('../api/projects').then((response) =>
                 {
                     this.projects = response.data.data;
                 }
             );
         },
-        edit() {
+        editProject() {
             const id = this.selectedId;
             const path = `/project/${id}`;
 
             router.push(path);
+        },
+        deleteProject() {
+            const id = this.selectedId;
+            const path = `../api/projects/${id}`;
+            axios.delete(path).then((response) =>
+            {
+                this.project = response.data.data;
+                this.getProjects();
+            });
         },
     },
 };

@@ -11,8 +11,8 @@ class ProjectController extends Controller
 {
     public function index(): AnonymousResourceCollection
     {
-        $products = Project::all();
-        return ProjectResource::collection($products->load('tasks'));
+        $projects = Project::all();
+        return ProjectResource::collection($projects->load('tasks'));
     }
 
     public function store(ProjectStoreRequest $request): ProjectResource
@@ -24,12 +24,19 @@ class ProjectController extends Controller
 
     public function show(Project $project): ProjectResource
     {
-        return new ProjectResource($project);
+        return new ProjectResource($project->load('tasks'));
     }
 
     public function update(ProjectStoreRequest $request, Project $project): ProjectResource
     {
         $project->update($request->validated());
+
+        return new ProjectResource($project);
+    }
+
+    public function destroy(Project $project): ProjectResource
+    {
+        $project->delete();
 
         return new ProjectResource($project);
     }

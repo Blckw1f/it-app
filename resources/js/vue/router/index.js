@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 
 const index = () => import('../components/index.vue');
 const projectForm = () => import('../components/projectForm.vue');
+const taskForm = () => import('../components/taskForm.vue');
 
 
 const routes = [
@@ -19,6 +20,16 @@ const routes = [
         name: "projectEdit",
         path: "/project/:id",
         component: projectForm,
+    },
+    {
+        name: "taskForm",
+        path: "/task",
+        component: taskForm,
+    },
+    {
+        name: "taskEdit",
+        path: "/task/:id",
+        component: taskForm,
     },
 ];
 const router = createRouter({

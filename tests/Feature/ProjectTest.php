@@ -23,6 +23,10 @@ class ProjectTest extends TestCase
     {
         return route('project.update', $id);
     }
+    private function deleteRoute($id): string
+    {
+        return route('project.delete', $id);
+    }
 
     public function testProjectStore()
     {
@@ -109,5 +113,20 @@ class ProjectTest extends TestCase
             ->putJson($url, $data)
             ->assertUnprocessable()
             ->assertInvalid([Project::NAME]);
+    }
+
+    public function testProjectDelete()
+    {
+        $project = Project::factory()->create();
+
+        $url = $this->deleteRoute($project->id);
+
+        $this
+            ->deleteJson($url)
+            ->assertSuccessful();
+
+        $this->assertDatabaseMissing('projects', [
+            Project::ID => $project->id,
+        ]);
     }
 }
