@@ -60,7 +60,7 @@
                     <button @click="this.selectedId = task.id; this.editTask()" class="btn-icon btn-icon-success" >
                         Edit
                     </button>
-                    <button @click="this.selectedId = task.id; this.deleteProject()" class="btn-icon btn-icon-danger" >
+                    <button @click="this.selectedId = task.id; this.deleteTask()" class="btn-icon btn-icon-danger" >
                         Del
                     </button>
                 </div>
@@ -124,7 +124,16 @@ export default {
             const id = this.selectedId;
             const path = `/task/${id}`;
 
-            router.push(path);
+            router.push({ path: path, query: { project: this.$route.params.id } });
+        },
+        deleteTask(){
+            const id = this.selectedId;
+            const path = `../api/tasks/${id}`;
+            axios.delete(path).then((response) =>
+            {
+                this.task = response.data.data;
+                this.getProject();
+            });
         },
     },
 };

@@ -12,11 +12,25 @@ class TaskController extends Controller
     {
         $task = Task::create($request->validated());
 
-        return new TaskResource($project);
+        return new TaskResource($task);
     }
 
     public function show(Task $task): TaskResource
     {
         return new TaskResource($task->load('project'));
+    }
+
+    public function update(TaskStoreRequest $request, Task $task): TaskResource
+    {
+        $task->update($request->validated());
+
+        return new TaskResource($task);
+    }
+
+    public function destroy(Task $task): TaskResource
+    {
+        $task->delete();
+
+        return new TaskResource($task);
     }
 }

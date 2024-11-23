@@ -58,7 +58,7 @@ export default {
         addTask() {
             this.task.project_id = this.$route.query.project;
             axios.post('../api/tasks', this.task).then(
-                router.push(-1)
+                router.push('/')
             )
         },
         getTask() {
@@ -70,6 +70,7 @@ export default {
             });
         },
         updateTask() {
+            this.task.project_id = this.$route.params.id;
             const id = this.$route.params.id;
             const path = `../api/tasks/${id}`;
             axios.put(path, this.task).then((response) =>
