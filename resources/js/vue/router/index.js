@@ -15,6 +15,11 @@ const routes = [
         path: "/project",
         component: projectForm,
     },
+    {
+        name: "projectEdit",
+        path: "/project/:id",
+        component: projectForm,
+    },
 ];
 const router = createRouter({
     history: createWebHistory(),

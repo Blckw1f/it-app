@@ -1,5 +1,5 @@
 <template>
-    <div class="products__create ">
+    <div class="projects__create ">
 
         <div class="projects__create__titlebar dflex justify-content-between align-items-center">
             <div class="projects__create__titlebar--item">
@@ -31,6 +31,7 @@
 <script>
 import axios from 'axios';
 import router from "../router/index.js";
+import {useRoute} from "vue-router";
 export default {
     name: 'project',
     data() {
@@ -38,13 +39,28 @@ export default {
             project: {
                 name: "",
             },
+            editMode: false,
         };
+    },
+    mounted() {
+        if (useRoute().name === 'projectEdit'){
+            this.editMode = true;
+            this.getProject();
+        }
     },
     methods: {
         addProject() {
             axios.post('../api/projects', this.project).then(
                 router.push('/')
             )
+        },
+        getProject() {
+            const id = this.$route.params.id;
+            const path = `../api/projects/${id}`;
+            axios.get(path, this.project).then((response) =>
+            {
+                this.project = response.data.data;
+            });
         },
     },
 };

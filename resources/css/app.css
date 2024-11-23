@@ -127,6 +127,18 @@ main h1 ~ p {
     cursor: pointer;
 }
 
+.btn-icon-success:hover {
+
+    background: rgb(47, 214, 111);
+    color: white;
+
+}
+.btn-icon-danger:hover {
+    background: crimson;
+    color: white;
+
+}
+
 
 .align-items-center {
     -webkit-box-align: center;
