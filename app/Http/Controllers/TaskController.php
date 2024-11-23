@@ -10,7 +10,7 @@ class TaskController extends Controller
 {
     public function store(TaskStoreRequest $request): TaskResource
     {
-        $project = Task::create($request->validated());
+        $task = Task::create($request->validated());
 
         return new TaskResource($project);
     }

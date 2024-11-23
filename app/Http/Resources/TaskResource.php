@@ -19,7 +19,7 @@ class TaskResource extends JsonResource
             'id' => $this->{Task::ID},
             'name' => $this->{Task::NAME},
             'due_date' => $this->{Task::DUE_DATE},
-            'project_id' => new ProjectResource($this->whenLoaded('project_id')),
+            'project' => new ProjectResource($this->whenLoaded('project')),
         ];
     }
 }

@@ -26,8 +26,7 @@ class ProjectStoreRequest extends FormRequest
                 'required',
                 'string',
                 'min: 2',
-                'max: 20',
-                'alpha',
+                'max: 50',
             ],
         ];
     }

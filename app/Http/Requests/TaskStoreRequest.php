@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,8 +28,7 @@ class TaskStoreRequest extends FormRequest
                 'required',
                 'string',
                 'min: 2',
-                'max: 20',
-                'alpha',
+                'max: 50',
             ],
             'due_date' => [
                 'required',
@@ -36,7 +36,7 @@ class TaskStoreRequest extends FormRequest
             ],
             'project_id' => [
                 'required',
-                Rule::exists('projects', 'id'),
+                Rule::exists(Project::TABLE, Project::ID),
             ],
         ];
     }
