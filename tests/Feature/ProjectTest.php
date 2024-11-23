@@ -19,6 +19,10 @@ class ProjectTest extends TestCase
     {
         return route('project.show', $id);
     }
+    private function updateRoute($id): string
+    {
+        return route('project.update', $id);
+    }
 
     public function testProjectStore()
     {
@@ -74,5 +78,36 @@ class ProjectTest extends TestCase
                     'id' => $id,
                 ]
             ]);
+    }
+
+    public function testProjectUpdate()
+    {
+        $project = Project::factory()->create();
+        $url = $this->updateRoute($project->id);
+
+        $data = $project->toArray();
+        $data[Project::NAME] = 'test';
+
+        $this
+            ->putJson($url, $data)
+            ->assertOk();
+
+        $this->assertDatabaseHas('projects', [
+            Project::NAME => $data['name'],
+        ]);
+    }
+
+    public function testUpdateValidateNameIsRequired()
+    {
+        $project = Project::factory()->create();
+        $url = $this->updateRoute($project->id);
+
+        $data = $project->toArray();
+        unset($data[Project::NAME]);
+
+        $this
+            ->putJson($url, $data)
+            ->assertUnprocessable()
+            ->assertInvalid([Project::NAME]);
     }
 }

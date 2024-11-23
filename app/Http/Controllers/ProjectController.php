@@ -26,4 +26,11 @@ class ProjectController extends Controller
     {
         return new ProjectResource($project);
     }
+
+    public function update(ProjectStoreRequest $request, Project $project): ProjectResource
+    {
+        $project->update($request->validated());
+
+        return new ProjectResource($project);
+    }
 }

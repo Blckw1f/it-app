@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <div class="table--heading mt-2 projects__list__heading " style="padding-top: 20px;background:#FFF">
+        <div class="table--heading mt-2 projects__list__heading" style="padding-top: 20px;background:#FFF">
             <p class="table--heading--col2">
                 Projects
             </p>
@@ -28,7 +28,7 @@
             <p class="table--items--col2">
                 {{ project.tasks.name }}
             </p>
-            <div class="">
+            <div class="dflex justify-end">
                 <button @click="this.selectedId = project.id; this.edit()" class="btn-icon btn-icon-success" >
                     Edit
                 </button>

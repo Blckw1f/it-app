@@ -1,13 +1,13 @@
 <template>
     <div class="projects__create ">
 
-        <div class="projects__create__titlebar dflex justify-content-between align-items-center">
-            <div class="projects__create__titlebar--item">
-                <h1 class="my-1">Add Project</h1>
+        <div class="projects__create__titlebar dflex align-items-center">
+            <div class="projects__create__titlebar--item justify-start">
+                <h1 v-if="editMode" class="my-1">Edit Product</h1>
+                <h1 v-else class="my-1">Add Product</h1>
             </div>
             <div class="projects__create__titlebar--item">
-
-                <div class="customers__titlebar--item">
+                <div class="customers__titlebar--item ml-4">
                     <router-link to="/" class="btn btn-secondary my-1">Back</router-link>
                 </div>
             </div>
@@ -22,9 +22,9 @@
             </div>
         </div>
         <!-- Footer Bar -->
-        <div class="dflex justify-content-between align-items-center my-3">
-            <p ></p>
-            <button @click="addProject" class="btn btn-secondary" >Save</button>
+        <div class="dflex my-1">
+            <button v-if="editMode" @click="updateProject" class="btn btn-secondary" >Update</button>
+            <button v-else @click="addProject" class="btn btn-secondary" >Save</button>
         </div>
     </div>
 </template>
@@ -60,6 +60,15 @@ export default {
             axios.get(path, this.project).then((response) =>
             {
                 this.project = response.data.data;
+            });
+        },
+        updateProject() {
+            const id = this.$route.params.id;
+            const path = `../api/projects/${id}`;
+            axios.put(path, this.project).then((response) =>
+            {
+                this.project = response.data.data;
+                router.push('/');
             });
         },
     },
