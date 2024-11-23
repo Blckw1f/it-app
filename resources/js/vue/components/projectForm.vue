@@ -124,7 +124,7 @@ export default {
             const id = this.selectedId;
             const path = `/task/${id}`;
 
-            router.push({ path: path, query: { project: this.$route.params.id } });
+            router.push(path);
         },
         deleteTask(){
             const id = this.selectedId;
