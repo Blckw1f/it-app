@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\TaskStoreRequest;
+use App\Http\Resources\TaskResource;
+use App\Models\Task;
+
+class TaskController extends Controller
+{
+    public function store(TaskStoreRequest $request): TaskResource
+    {
+        $project = Task::create($request->validated());
+
+        return new TaskResource($project);
+    }
+}

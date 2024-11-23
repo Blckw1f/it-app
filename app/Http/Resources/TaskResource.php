@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProjectResource extends JsonResource
+class TaskResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,10 @@ class ProjectResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->{Project::ID},
-            'name' => $this->{Project::NAME},
-            'tasks' => TaskResource::collection($this->whenLoaded('tasks')),
+            'id' => $this->{Task::ID},
+            'name' => $this->{Task::NAME},
+            'due_date' => $this->{Task::DUE_DATE},
+            'project_id' => new ProjectResource($this->whenLoaded('project_id')),
         ];
     }
 }
